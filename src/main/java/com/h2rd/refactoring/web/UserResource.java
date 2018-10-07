@@ -18,9 +18,10 @@ import java.util.List;
 @Repository
 public class UserResource{
 
-    public UserDao userDao;
+    @Autowire
+    private UserDao userDao;
 
-    @GET
+    @GET // TODO: change to post
     @Path("add/")
     public Response addUser(@QueryParam("name") String name,
                             @QueryParam("email") String email,
@@ -39,7 +40,7 @@ public class UserResource{
         return Response.ok().entity(user).build();
     }
 
-    @GET
+    @GET // TODO: change to put or post
     @Path("update/")
     public Response updateUser(@QueryParam("name") String name,
                                @QueryParam("email") String email,
@@ -59,7 +60,7 @@ public class UserResource{
     }
 
     @GET
-    @Path("delete/")
+    @Path("delete/") // TODO: change to @delete, don't need all params
     public Response deleteUser(@QueryParam("name") String name,
                                @QueryParam("email") String email,
                                @QueryParam("role") List<String> roles) {
