@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class UserDao {
 
-    public ArrayList<User> users;
-
-    public static UserDao userDao;
+    private ArrayList<User> users = new ArrayList<User>();
+    private static UserDao userDao;
 
     public static UserDao getUserDao() {
         if (userDao == null) {
@@ -16,55 +15,33 @@ public class UserDao {
     }
 
     public void saveUser(User user) {
-        if (users == null) {
-            users = new ArrayList<User>();
-        }
         users.add(user);
     }
 
     public ArrayList<User> getUsers() {
-        try {
-            return users;
-        } catch (Throwable e) {
-            System.out.println("error");
-            return null;
-        }
+        return users;
     }
 
     public void deleteUser(User userToDelete) {
-        try {
-            for (User user : users) {
-                if (user.getName() == userToDelete.getName()) {
-                    users.remove(user);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (User user : users) {
+            if (user.getName().equals(userToDelete.getName()))
+                users.remove(user);
         }
     }
 
     public void updateUser(User userToUpdate) {
-        try {
-            for (User user : users) {
-                if (user.getName() == userToUpdate.getName()) {
-                    user.setEmail(userToUpdate.getEmail());
-                    user.setRoles(userToUpdate.getRoles());
-                }
+        for (User user : users) {
+            if (user.getName().equals(userToUpdate.getName())) {
+                user.setEmail(userToUpdate.getEmail());
+                user.setRoles(userToUpdate.getRoles());
             }
-        } catch (RuntimeException e) {
-            e.printStackTrace();
         }
     }
 
     public User findUser(String name) {
-        try {
-            for (User user : users) {
-                if (user.getName() == name) {
-                    return user;
-                }
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        for (User user : users) {
+            if (user.getName().equals(name))
+                return user;
         }
         return null;
     }
